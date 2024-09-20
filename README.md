@@ -1,3 +1,18 @@
+## BioSim4_Mod Project Ideas:
+* Cross-Platform compatibility
+* Release Executables
+* GUI - I was thinking about SFML myself, then I found [this brilliant repo](https://github.com/ilyabrilev/biosim4) from [ilyabrilev.](https://github.com/ilyabrilev)
+* Parallelize computationally expensive parts of the simulator
+* Build Scripts
+* Exploring certain improvements to the simulation for the sake of learning, such as:
+  * Memory system for peeps
+  * Behavioral additions and the impact it has on evolution
+  * Neural Network Expansion
+  * Pheromone System Enhancement
+  * Additional Simulation Parameters, such as killing or others suggested by viewers of the original video in the YouTube comments
+  * Potentially generate sprites to emulate species with different features or something more visually distinct
+  * Epigenetics
+
 # biosim4
 
 Fork of https://github.com/davidrmiller/biosim4
