@@ -1,4 +1,6 @@
+# biosim4
 ## BioSim4_Mod Project Ideas:
+Fork of https://github.com/ilyabrilev/biosim4
 * Cross-Platform compatibility
 * Release Executables
 * GUI - I was thinking about SFML myself, then I found [this brilliant repo](https://github.com/ilyabrilev/biosim4) from [ilyabrilev.](https://github.com/ilyabrilev)
@@ -13,12 +15,8 @@
   * Potentially generate sprites to emulate species with different features or something more visually distinct
   * Epigenetics
 
-# biosim4
-
-Fork of https://github.com/davidrmiller/biosim4
-
 ### What has been done
-
+Fork of https://github.com/davidrmiller/biosim4
 - heavy refactoring
 - a new output via SFML which renders individuals, challenge criterias and barriers in real-time with the ability to drag simulation (LMB), zoom in/out (scroll), select indiv (LMB)
 - UI to watch and control simulation with TGUI:
