@@ -15,7 +15,7 @@ Fork of https://github.com/ilyabrilev/biosim4
   * Potentially generate sprites to emulate species with different features or something more visually distinct
   * Epigenetics
 
-### What has been done
+### What has been done:
 Fork of https://github.com/davidrmiller/biosim4
 - heavy refactoring
 - a new output via SFML which renders individuals, challenge criterias and barriers in real-time with the ability to drag simulation (LMB), zoom in/out (scroll), select indiv (LMB)
