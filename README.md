@@ -2,6 +2,7 @@
 ## BioSim4_Mod Project Ideas:
 Fork of https://github.com/ilyabrilev/biosim4
 * Cross-Platform compatibility
+* Modify pragma directives for MSVC support
 * Release Executables
 * GUI - I was thinking about SFML myself, then I found [this brilliant repo](https://github.com/ilyabrilev/biosim4) from [ilyabrilev.](https://github.com/ilyabrilev)
 * Parallelize computationally expensive parts of the simulator
@@ -14,7 +15,7 @@ Fork of https://github.com/ilyabrilev/biosim4
   * Additional Simulation Parameters, such as killing or others suggested by viewers of the original video in the YouTube comments
   * Potentially generate sprites to emulate species with different features or something more visually distinct
   * Epigenetics
-  * Modify pragma directives for MSVC support
+  
 
 ### What has been done:
 Fork of https://github.com/davidrmiller/biosim4
