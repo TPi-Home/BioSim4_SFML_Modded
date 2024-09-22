@@ -108,4 +108,3 @@ distclean: clean
 	$(RM) -f Output/Images/* Output/Videos/* Output/Logs/* Output/Saves/* Output/Profiling/*
 
 .PHONY: all clean distclean
-

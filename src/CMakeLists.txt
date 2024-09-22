@@ -1,31 +1,99 @@
+cmake_minimum_required(VERSION 3.10)
+project(biosim4)
 
-FILE(GLOB MyCppSources ./*.cpp)
-FILE(GLOB MyCppheaders ./*.h)
+# Set C++ standard
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# TODO move the unit test to test build and include in test mechanims of cmake
-#list(REMOVE_ITEM MyCppSources "./unitTestBasicTypes.cpp")
-#list(REMOVE_ITEM MyCppSources "./unitTestConnectNeuralNetWiringFromGenome.cpp")
-#list(REMOVE_ITEM MyCppSources "./unitTestGridVisitNeighborhood.cpp")
+# Build type (default is release)
+if(NOT CMAKE_BUILD_TYPE)
+  set(CMAKE_BUILD_TYPE Release)
+endif()
+
+set(CMAKE_CXX_COMPILER c++)
+set(CMAKE_LINKER c++)
+
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_BINARY_DIR}/bin/Debug)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_BINARY_DIR}/bin/Release)
+
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG ${CMAKE_BINARY_DIR}/obj/Debug/src)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE ${CMAKE_BINARY_DIR}/obj/Release/src)
+
+file(GLOB_RECURSE SOURCES
+  src/*.cpp
+  src/userio/*.cpp
+  src/userio/sfmlComponents/*.cpp
+  src/userio/sfmlComponents/flowComponents/*.cpp
+  src/userio/sfmlComponents/settingsComponents/*.cpp
+  src/utils/*.cpp
+  src/ai/*.cpp
+  src/survivalCriteria/*.cpp
+)
+
+file(GLOB_RECURSE HEADERS
+  src/*.h
+  src/userio/*.h
+  src/userio/sfmlComponents/*.h
+  src/userio/sfmlComponents/flowComponents/*.h
+  src/userio/sfmlComponents/settingsComponents/*.h
+  src/utils/*.h
+  src/ai/*.h
+  src/survivalCriteria/*.h
+)
+
+include_directories(src/include)
+
+find_package(OpenMP REQUIRED)
+if(OpenMP_CXX_FOUND)
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
+endif()
 
 find_package(OpenCV REQUIRED)
+find_package(SFML 2.6 COMPONENTS graphics window system REQUIRED)
+find_package(TGUI REQUIRED)
 
-include_directories( ${OpenCV_INCLUDE_DIRS} )
+add_executable(biosim4 ${SOURCES} ${HEADERS})
 
-SET(GCC_COVERAGE_COMPILE_FLAGS "-O3 -Wall -fexceptions -fopenmp")
-SET(GCC_COVERAGE_LINK_FLAGS    "-lpthread -O3 -lz -lgomp")
+target_compile_options(biosim4 PRIVATE
+  -Wall
+  -pedantic
+  -fexceptions
+  -fopenmp
+  $<$<CONFIG:Debug>:-g>
+  $<$<CONFIG:Release>:-O3>
+) 
 
-SET(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} ${GCC_COVERAGE_COMPILE_FLAGS}")
-SET(CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS} ${GCC_COVERAGE_LINK_FLAGS}")
-set( CMAKE_VERBOSE_MAKEFILE on )
+target_link_libraries(biosim4
+  OpenMP::OpenMP_CXX
+  ${OpenCV_LIBS}
+  sfml-graphics
+  sfml-window
+  sfml-system
+  tgui
+  -lgomp
+  -lpthread
+  $<$<CONFIG:Release>:-O3 -s>
+)
 
-add_executable(biosim4 ${MyCppSources} ${MyCppheaders})
-target_link_libraries( biosim4 PUBLIC ${OpenCV_LIBS} )
+add_custom_target(distclean
+  COMMAND ${CMAKE_COMMAND} -E remove_directory ${CMAKE_BINARY_DIR}/Output/Images
+  COMMAND ${CMAKE_COMMAND} -E remove_directory ${CMAKE_BINARY_DIR}/Output/Videos
+  COMMAND ${CMAKE_COMMAND} -E remove_directory ${CMAKE_BINARY_DIR}/Output/Logs
+  COMMAND ${CMAKE_COMMAND} -E remove_directory ${CMAKE_BINARY_DIR}/Output/Saves
+  COMMAND ${CMAKE_COMMAND} -E remove_directory ${CMAKE_BINARY_DIR}/Output/Profiling
+)
 
-
-install(TARGETS biosim4 DESTINATION bin)
+install(FILES ./biosim4.ini DESTINATION ./)
+install(DIRECTORY ./tools/ DESTINATION tools)
+install (DIRECTORY DESTINATION "logs" DIRECTORY_PERMISSIONS 
+    OWNER_WRITE OWNER_READ OWNER_EXECUTE
+    GROUP_READ GROUP_READ GROUP_EXECUTE
+    GROUP_READ WORLD_READ WORLD_EXECUTE)
+install (DIRECTORY DESTINATION "images" DIRECTORY_PERMISSIONS 
+    OWNER_WRITE OWNER_READ OWNER_EXECUTE
+    GROUP_READ GROUP_READ GROUP_EXECUTE
+    GROUP_READ WORLD_READ WORLD_EXECUTE)
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
 include(CPack)
-
-
