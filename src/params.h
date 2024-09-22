@@ -4,6 +4,7 @@
 // Global simulator parameters
 
 #include <string>
+#include <vector>
 
 // To add a new parameter:
 //    1. Add a member to struct Params in params.h.
