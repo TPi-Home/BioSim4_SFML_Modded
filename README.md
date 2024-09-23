@@ -1,6 +1,6 @@
 # biosim4
-## BioSim4_Mod Project Ideas:
-Fork of https://github.com/ilyabrilev/biosim4
+## BioSim4_Mod Project Ideas from TPi (not sure if planned yet):
+Tyler from TPi forked this project from https://github.com/ilyabrilev/biosim4 
 * Cross-Platform compatibility
 * Modify pragma directives for MSVC support
 * Release Executables
@@ -16,9 +16,19 @@ Fork of https://github.com/ilyabrilev/biosim4
   * Potentially generate sprites to emulate species with different features or something more visually distinct
   * Epigenetics
   
-
-### What has been done:
-Fork of https://github.com/davidrmiller/biosim4
+## Requirements
+* Ubuntu 21.04, 22.04, or Debian 10 (Buster)
+* cimg-dev 2.4.5 or later
+* libopencv-dev 3.2 or later
+* gcc 8.3, 9.3 or 10.3
+* python-igraph 0.8.3 (used only by tools/graph-nnet.py)
+* gnuplot 5.2.8 (used only by tools/graphlog.gp)
+* cereal (it should work right of the box, but here is a link anyway https://uscilab.github.io/cereal/index.html)
+* tgui 1.1 https://tgui.eu/tutorials/latest-stable/
+* sfml https://stackoverflow.com/questions/30696114/how-to-install-sfml-in-ubuntu
+  
+## What has been done:
+ilyabrilev forked this project from https://github.com/davidrmiller/biosim4 
 - heavy refactoring
 - a new output via SFML which renders individuals, challenge criterias and barriers in real-time with the ability to drag simulation (LMB), zoom in/out (scroll), select indiv (LMB)
 - UI to watch and control simulation with TGUI:
@@ -32,7 +42,7 @@ Fork of https://github.com/davidrmiller/biosim4
 
 ![alt text](https://github.com/ilyabrilev/biosim4/blob/main/screenshot.png?raw=true)
 
-### Plans
+## Plans by ilyabrilev
 - expand UI functionality to controll simulation
 - implement recording of simulation, add ability to play it with time skipping, ability to go back (etc.)
 - hopefuly add more behaviour, events, resources to simulation
@@ -225,24 +235,26 @@ but large radii require lots of CPU cycles.
 <a name="InstallingTheCode"></a>
 ## Installing the code
 --------------------
-
 Copy the directory structure to a location of your choice.
 
+
 <a name="BuildingTheExecutable"></a>
-## Building the executable
+## Building the executable: Currently only Make works
 --------------------
 
 <a name="SystemRequirements"></a>
 ### System requirements
 
 This code is known to run in the following environment:
-
 * Ubuntu 21.04, 22.04, or Debian 10 (Buster)
 * cimg-dev 2.4.5 or later
 * libopencv-dev 3.2 or later
 * gcc 8.3, 9.3 or 10.3
 * python-igraph 0.8.3 (used only by tools/graph-nnet.py)
 * gnuplot 5.2.8 (used only by tools/graphlog.gp)
+* cereal (it should work right of the box, but here is a link anyway https://uscilab.github.io/cereal/index.html)
+* tgui 1.1 https://tgui.eu/tutorials/latest-stable/
+* sfml https://stackoverflow.com/questions/30696114/how-to-install-sfml-in-ubuntu
 
 The code also runs in distributions based on Ubuntu 20.04, but only if the default version of
 cimg-dev is replaced with version 2.8.4 or later.
@@ -250,9 +262,10 @@ cimg-dev is replaced with version 2.8.4 or later.
 <a name="Compiling"></a>
 ### Compiling
 
-You have several options:
+~~You have several options:~~
+You have one option that works reliably: make with careful attention to build environment.
 
-#### Code::Blocks project file
+#### Code::Blocks project file (likely deprecated)
 
 The file named "biosim4.cbp" is a configuration file for the Code::Blocks IDE version 20.03.
 
@@ -265,22 +278,22 @@ A Makefile is provided which was created from biosim4.cbp with cbp2make. Possibl
 * "make debug" makes a debug version in ./bin/Debug
 * "make clean" removes the intermediate build files
 
-#### Docker
+~~#### Docker~~
 
-A Dockerfile is provided which leverages the aforementioned Makefile.
+~~A Dockerfile is provided which leverages the aforementioned Makefile.~~
 
-To build a Docker environment in which you can compile the program:
+~~To build a Docker environment in which you can compile the program:~~
 
 ```sh
 docker build -t biosim4 .
 ```
 
-You can then compile the program with an ephemeral container:
+~~You can then compile the program with an ephemeral container:~~
 
 ```sh
 docker run --rm -ti -v `pwd`:/app --name biosim biosim4 make
 ```
-When you exit the container, the files compiled in your container files will persist in `./bin`.
+~~When you exit the container, the files compiled in your container files will persist in `./bin`.~~
 
 #### CMake
 
